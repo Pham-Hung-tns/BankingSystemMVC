@@ -27,6 +27,6 @@ namespace BankingSystem.Models
 
         public string Content { get; set; }
 
-        public decimal BalanceAfter { get; set; }
+        public decimal BalanceAfter { get; set; }// Số dư sau giao dịch
     }
 }
