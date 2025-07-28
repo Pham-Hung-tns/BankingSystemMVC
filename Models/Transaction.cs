@@ -23,10 +23,10 @@ namespace BankingSystem.Models
         public decimal Amount { get; set; }
 
         [Required]
-        public DateTime TransactionTime { get; set; } = DateTime.Now;
+        public DateTime TransactionTime { get; set; } = DateTime.UtcNow;
 
         public string Content { get; set; }
 
-        public decimal BalanceAfter { get; set; }// Số dư sau giao dịch
+        public decimal BalanceAfter { get; set; } // Số dư sau giao dịch
     }
 }
