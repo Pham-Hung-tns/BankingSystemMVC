@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankingSystem.Migrations
 {
     [DbContext(typeof(BankingDbContext))]
-    [Migration("20250727161516_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250728162747_UpdateSavingModel")]
+    partial class UpdateSavingModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,9 +48,8 @@ namespace BankingSystem.Migrations
 
             modelBuilder.Entity("BankingSystem.Models.Saving", b =>
                 {
-                    b.Property<Guid>("SavingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("SavingId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
@@ -59,10 +58,13 @@ namespace BankingSystem.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("PackageId")
-                        .HasColumnType("int");
+                    b.Property<bool>("AutoRenew")
+                        .HasColumnType("bit");
 
-                    b.Property<int>("SavingPackagesPackageId")
+                    b.Property<DateTime>("MaturityDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PackageId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
@@ -72,7 +74,7 @@ namespace BankingSystem.Migrations
 
                     b.HasIndex("AccountNumber");
 
-                    b.HasIndex("SavingPackagesPackageId");
+                    b.HasIndex("PackageId");
 
                     b.ToTable("Savings");
                 });
@@ -175,7 +177,7 @@ namespace BankingSystem.Migrations
 
                     b.HasOne("BankingSystem.Models.SavingPackages", "SavingPackages")
                         .WithMany("Savings")
-                        .HasForeignKey("SavingPackagesPackageId")
+                        .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

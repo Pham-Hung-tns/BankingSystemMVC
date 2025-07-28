@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankingSystem.Models
 {
     public class Saving
     {
-        [Key]
-        public Guid SavingId { get; set; }
+        public string SavingId { get; set; }
 
         [Required]
         [ForeignKey("User")]
@@ -18,9 +18,14 @@ namespace BankingSystem.Models
 
         [Required]
         public DateTime StartDate { get; set; } = DateTime.Now;
+        public DateTime MaturityDate { get; set; }
 
-        [ForeignKey("SavingPackage")]
+        public bool AutoRenew { get; set; }
+
+        [ForeignKey("SavingPackages")]
         public int PackageId { get; set; }
         public SavingPackages SavingPackages { get; set; }
     }
+
 }
+
